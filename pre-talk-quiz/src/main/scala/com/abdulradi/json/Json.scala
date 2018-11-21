@@ -17,10 +17,10 @@ object JsonSerialisation {
     */
   def serialise(json: Json): String = json match {
     case JsonNull => "null"
-    case JsonString(value) => ???
+    case JsonString(value) => "\"%s\"".format(value)
     case JsonNumber(value) => value.toString
-    case JsonBoolean(value) => ???
+    case JsonBoolean(value) => value.toString
     case JsonArray(values) => values.map(v => serialise(v)).mkString("[", ",", "]")
-    case JsonObject(values) => ???
+    case JsonObject(values) => values.map(v => "\"%s\":%s".format(v._1, serialise(v._2))).mkString("{", ",", "}")
   }
 }
